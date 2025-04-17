@@ -6,7 +6,9 @@ ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD=997755
 ENV MSSQL_PID=Express
 
-# Install SQL Server Command Line Tools (sqlcmd and bcp) and dependencies
+# Install dependencies and tools with root privileges
+USER root
+
 RUN apt-get update && apt-get install -y \
     curl \
     gnupg2 \
