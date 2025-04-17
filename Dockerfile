@@ -6,12 +6,13 @@ ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD=997755
 ENV MSSQL_PID=Express
 
-# Install SQL Server Command Line Tools (sqlcmd and bcp)
+# Install SQL Server Command Line Tools (sqlcmd and bcp) and dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     gnupg2 \
     lsb-release \
     ca-certificates \
+    software-properties-common \
     && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && apt-get update \
