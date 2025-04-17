@@ -30,5 +30,7 @@ EXPOSE 1433
 # Copy your local database script into the container
 COPY ./qscript.sql /qscript.sql
 
-# Command to run SQL Server and execute the script
-CMD /bin/bash -c "/opt/mssql/bin/sqlservr & /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '997755' -d master -i /qscript.sql && tail -f /dev/null"
+# Wait for SQL Server to be ready before running the script
+CMD /bin/bash -c "(/opt/mssql/bin/sqlservr &); \
+    sleep 30; \
+    /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '997755' -d master -i /qscript.sql && tail -f /dev/null"
